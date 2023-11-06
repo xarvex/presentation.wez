@@ -8,7 +8,7 @@
 [![Common Changelog](https://common-changelog.org/badge.svg)](https://common-changelog.org)
 
 Main repository lives on [GitLab](https://gitlab.com/xarvex/presentation.wez).
-Mirror is be found through [GitHub](https://github.com/Xarvex/presentation.wez).
+Mirror can found through [GitHub](https://github.com/Xarvex/presentation.wez).
 
 
 ## ⚡️ Quick Start

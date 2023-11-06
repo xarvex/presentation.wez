@@ -111,7 +111,6 @@ local function enable(win, opts, record_attributes)
         end
     else if opts.fullscreen and presentation_fullscreen then
             win:toggle_fullscreen()
-            overrides.color_scheme = nil
         else if presentation_fullscreen then
                 win:maximize()
             end

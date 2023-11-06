@@ -19,6 +19,9 @@ This will use the defaults. If you'd like to fine tune, keep reading, otherwise:
 wezterm.plugin.require("https://gitlab.com/xarvex/presentation.wez").apply_to_config(config)
 ```
 
+Then, activate with `CTRL + ALT + P` for presentation mode, or `CTRL + ALT +
+SHIFT + P` for fullscreen presentation.
+
 
 ## 🔱 Features
 
@@ -38,6 +41,8 @@ Planned:
 
 
 ## ⚙️ Configuration
+
+Shown is the default settings:
 
 ```lua
 {

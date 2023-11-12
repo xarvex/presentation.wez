@@ -2,6 +2,8 @@ local wezterm = require("wezterm")
 
 local M = {}
 
+
+
 ---@class ConfigModeKeybind
 ---@field key? string
 ---@field mods? string
@@ -37,6 +39,7 @@ local default_config = {
 }
 
 
+
 ---@param t1 table
 ---@param t2 table
 ---@return table t
@@ -55,6 +58,8 @@ local function deep_merge_table(t1, t2)
 
     return t1
 end
+
+
 
 local presentation_active = false
 local presentation_prev_font_weight
@@ -150,6 +155,8 @@ local function toggle(win, opts)
     win:set_config_overrides(overrides)
 end
 
+
+
 ---@param config unknown
 ---@param opts? Config
 ---@return unknown config
@@ -190,5 +197,7 @@ function M.apply_to_config(config, opts)
 
     return config
 end
+
+
 
 return M

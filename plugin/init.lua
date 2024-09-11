@@ -1,5 +1,3 @@
-local wezterm = require("wezterm")
-
 local M = {}
 
 ---@class ConfigModeKeybind
@@ -152,7 +150,7 @@ function M.apply_to_config(config, opts)
         table.insert(config.keys, {
             key = opts.presentation.keybind.key,
             mods = opts.presentation.keybind.mods,
-            action = wezterm.action_callback(
+            action = require("wezterm").action_callback(
                 function(win)
                     toggle(win, {
                         fullscreen = false,
@@ -167,7 +165,7 @@ function M.apply_to_config(config, opts)
         table.insert(config.keys, {
             key = opts.presentation_full.keybind.key,
             mods = opts.presentation_full.keybind.mods,
-            action = wezterm.action_callback(
+            action = require("wezterm").action_callback(
                 function(win)
                     toggle(win, {
                         fullscreen = true,

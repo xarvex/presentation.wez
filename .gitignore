@@ -1,0 +1,14 @@
+# Snippet generated 2024-09-11
+# Created by https://www.toptal.com/developers/gitignore/api/direnv
+# Edit at https://www.toptal.com/developers/gitignore?templates=direnv
+
+### direnv ###
+.direnv
+.envrc
+
+# End of https://www.toptal.com/developers/gitignore/api/direnv
+
+.devenv
+.pre-commit-config.yaml
+
+result

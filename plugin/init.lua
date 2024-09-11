@@ -2,8 +2,6 @@ local wezterm = require("wezterm")
 
 local M = {}
 
-
-
 ---@class ConfigModeKeybind
 ---@field key? string
 ---@field mods? string
@@ -26,19 +24,17 @@ local default_config = {
         enabled = true,
         keybind = {
             key = "p",
-            mods = "CTRL|ALT"
-        }
+            mods = "CTRL|ALT",
+        },
     },
     presentation_full = {
         enabled = true,
         keybind = {
             key = "p",
-            mods = "CTRL|ALT|SHIFT"
-        }
-    }
+            mods = "CTRL|ALT|SHIFT",
+        },
+    },
 }
-
-
 
 ---@param t1 table
 ---@param t2 table
@@ -59,8 +55,6 @@ local function deep_merge_table(t1, t2)
     return t1
 end
 
-
-
 local presentation_active = false
 local presentation_prev_font_weight
 local presentation_prev_font_size
@@ -75,7 +69,7 @@ local presentation_fullscreen = false
 local default_toggle = {
     fullscreen = false,
     font_weight = "DemiBold",
-    font_size_multiplier = 2.0
+    font_size_multiplier = 2.0,
 }
 
 ---@param win table
@@ -89,15 +83,9 @@ local function enable(win, opts, record_attributes)
     local config = win:effective_config()
     local overrides = win:get_config_overrides() or {}
 
-    if not overrides.font then
-        overrides.font = {}
-    end
-    if not overrides.font.font then
-        overrides.font.font = {}
-    end
-    if not overrides.font.font[1] then
-        overrides.font.font[1] = config.font.font[1]
-    end
+    if not overrides.font then overrides.font = {} end
+    if not overrides.font.font then overrides.font.font = {} end
+    if not overrides.font.font[1] then overrides.font.font[1] = config.font.font[1] end
 
     if record_attributes then
         presentation_prev_font_weight = overrides.font.font[1].weight
@@ -111,14 +99,12 @@ local function enable(win, opts, record_attributes)
     if opts.fullscreen ~= win:get_dimensions().is_full_screen then
         win:toggle_fullscreen()
         presentation_fullscreen = opts.fullscreen
-        if not opts.fullscreen then
-            win:maximize()
-        end
-    else if opts.fullscreen and presentation_fullscreen then
+        if not opts.fullscreen then win:maximize() end
+    else
+        if opts.fullscreen and presentation_fullscreen then
             win:toggle_fullscreen()
-        else if presentation_fullscreen then
-                win:maximize()
-            end
+        else
+            if presentation_fullscreen then win:maximize() end
         end
     end
 
@@ -142,9 +128,7 @@ local function toggle(win, opts)
             overrides.font.font[1].weight = presentation_prev_font_weight
             overrides.font_size = presentation_prev_font_size
 
-            if opts.fullscreen and presentation_fullscreen then
-                win:toggle_fullscreen()
-            end
+            if opts.fullscreen and presentation_fullscreen then win:toggle_fullscreen() end
             win:restore()
             presentation_active = false
         end
@@ -155,15 +139,11 @@ local function toggle(win, opts)
     win:set_config_overrides(overrides)
 end
 
-
-
 ---@param config unknown
 ---@param opts? Config
 ---@return unknown config
 function M.apply_to_config(config, opts)
-    if not config.keys then
-        config.keys = {}
-    end
+    if not config.keys then config.keys = {} end
 
     ---@type Config
     opts = opts and deep_merge_table(default_config, opts) or default_config
@@ -172,32 +152,34 @@ function M.apply_to_config(config, opts)
         table.insert(config.keys, {
             key = opts.presentation.keybind.key,
             mods = opts.presentation.keybind.mods,
-            action = wezterm.action_callback(function(win)
-                toggle(win, {
-                    fullscreen = false,
-                    font_weight = opts.presentation.font_weight or opts.font_weight,
-                    font_size_multiplier = opts.presentation.font_size_multiplier or opts.font_size_multiplier
-                })
-            end)
+            action = wezterm.action_callback(
+                function(win)
+                    toggle(win, {
+                        fullscreen = false,
+                        font_weight = opts.presentation.font_weight or opts.font_weight,
+                        font_size_multiplier = opts.presentation.font_size_multiplier or opts.font_size_multiplier,
+                    })
+                end
+            ),
         })
     end
     if opts.presentation_full.enabled then
         table.insert(config.keys, {
             key = opts.presentation_full.keybind.key,
             mods = opts.presentation_full.keybind.mods,
-            action = wezterm.action_callback(function(win)
-                toggle(win, {
-                    fullscreen = true,
-                    font_weight = opts.presentation_full.font_weight or opts.font_weight,
-                    font_size_multiplier = opts.presentation_full.font_size_multiplier or opts.font_size_multiplier
-                })
-            end)
+            action = wezterm.action_callback(
+                function(win)
+                    toggle(win, {
+                        fullscreen = true,
+                        font_weight = opts.presentation_full.font_weight or opts.font_weight,
+                        font_size_multiplier = opts.presentation_full.font_size_multiplier or opts.font_size_multiplier,
+                    })
+                end
+            ),
         })
     end
 
     return config
 end
-
-
 
 return M

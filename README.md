@@ -8,7 +8,7 @@
 [![Common Changelog](https://common-changelog.org/badge.svg)](https://common-changelog.org)
 
 Main repository lives on [GitLab](https://gitlab.com/xarvex/presentation.wez).
-Mirror can found through [GitHub](https://github.com/Xarvex/presentation.wez).
+Mirror can found through [GitHub](https://github.com/xarvex/presentation.wez).
 
 
 ## ⚡️ Quick Start
@@ -85,7 +85,7 @@ wezterm.plugin.require("https://gitlab.com/xarvex/presentation.wez").apply_to_co
 
 ### 📃 License
 
-_This project is licensed under **Mozilla Public License 2.0**._
+_This project is licensed under **MIT**._
 
 
 [WezTerm]: https://wezfurlong.org/wezterm

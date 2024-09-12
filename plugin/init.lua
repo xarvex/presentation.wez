@@ -108,6 +108,8 @@ local function enable(win, opts, record_attributes)
 
     presentation_active = true
 
+    require("wezterm").emit("xarvex.presentation.activate", win)
+
     return overrides
 end
 
@@ -129,6 +131,8 @@ local function toggle(win, opts)
             if opts.fullscreen and presentation_fullscreen then win:toggle_fullscreen() end
             win:restore()
             presentation_active = false
+
+            require("wezterm").emit("xarvex.presentation.deactivate", win)
         end
     else
         deep_merge_table(overrides, enable(win, opts, true))
